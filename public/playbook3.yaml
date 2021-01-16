@@ -4,7 +4,7 @@
   tasks:
     - name: create first group
       group:
-        name: ericsson
+        name: gurgaon
         state: present
 
     - name: create second group
