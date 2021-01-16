@@ -1,0 +1,15 @@
+## po group will be primary group of nikhil user
+---
+- hosts: all
+  tasks:
+    - name: create group 
+      group: 
+        name: po
+        state: present
+    - name: create user
+      user:
+        name: john
+        comment: "John Doe"
+        uid: 2001
+        group: po
+        state: present

@@ -1,0 +1,21 @@
+#### ericsson and noida group will be secondary group of existing user afroz
+---
+- hosts: all
+  tasks:
+    - name: create first group
+      group:
+        name: ericsson
+        state: present
+
+    - name: create second group
+      group:
+        name: noida
+        state: present
+    
+    - name: adding existing user "{{ ansible_user_id }}" to group sudo
+      user: 
+        name: "{{ ansible_user_id }}"
+        shell: /bin/sh
+        groups: ericsson,noida
+        append: yes
+        
