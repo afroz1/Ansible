@@ -20,19 +20,19 @@ Syntax:-
 ansible <hosts> [-m <module_name>] -a <"arguments"> -u <username> [--become]
 ansible <hosts> [-m <module_name>] -a <"arguments"> -K
 
-Hosts: 	
+Hosts: 	
 It can be any entry in the inventory file. For specifying all hosts in inventory, use all or '*'. Wild card patterns are also accepted.
 
-module_name 	
+module_name: 	
 It's an optional parameter. There are hundreds of modules available in Ansible. By default, it is command. For example, shell, copy, yum, apt, file.
 
-Arguments:
+Arguments:
 We should pass values that are required by the module. It may change according to the module used.
 
-Username: 	
+Username: 	
 It specifies the user account in which Ansible can execute commands. User account, SSH.
 
-Become: 	
+Become:	
 It's an optional parameter specified when we want to execute operations that need sudo privilege. By default, become is false.
 --ask-become-pass, -K ---> ask for privilege escalation password.
 
@@ -69,8 +69,10 @@ user: To add and delete users
 
 service: To manage services like httpd, mysqld etc.
 #ansible dbservers -m service -a 'name=mysqld state=started'
+
 setup: It's used for gathering facts about the hosts
 #ansible all -m setup
+
 Patterns:-
 ansible <pattern_goes_here> -m <module_name> -a <arguments>
 
@@ -81,6 +83,7 @@ Such as:
 The following patterns are equivalent and target all hosts in the inventory:
 all
 *
+
 Such as:-
 [root@ansible ansible] # ansible all -m service -a "name=httpd state=restarted" -k
 [root@ansible ansible]# ansible * -m service -a "name=httpd state=restarted" -k
@@ -88,25 +91,31 @@ Such as:-
 [root@ansible ansible] # ansible 169.144.82.* -m service -a "name=httpd state=restarted" -k
 [root@ansible ansible] # ansible webservers:phonix  -m service -a "name=httpd state=restarted" -k 
 
-•	You can exclude groups as well, for instance, all machines must be in the group webservers but not in the group phoenix:
+You can exclude groups as well, for instance, all machines must be in the group webservers but not in the group phoenix:
 [root@ansible ansible] # ansible webservers:!phonix  -m service -a "name=httpd state=started"    -k
 [root@ansible ansible] # ansible webservers:!phonix  -m service -a "name=httpd state=restarted" -k
 [root@ansible ansible] # ansible webservers:!phonix  -m service -a "name=httpd state=stopped"  -k
 [root@ansible ansible] # ansible all  -m service -a "name=httpd state=stopped"  -k
 
-•	To install the bind package
+To install the bind package
 [root@ansible ~]# ansible webservers -m yum -a "name=bind state=present" -k
-•	To remove the bind package
+
+To remove the bind package
 [root@ansible ~]# ansible webservers -m yum -a "name=bind state=absent" -k
-•	File Transfer
+
+File Transfer
 [root@ansible ~]# ansible webservers -m copy -a "src=/etc/hosts dest=/tmp/hosts" -k
-•	Set permission over the file
+
+Set permission over the file
 [root@ansible ~]# ansible webservers -m file -a "dest=/root/anaconda-ks.cfg mode=660 owner=user1 group=user1" -k
-•	Set permission on directory
+
+Set permission on directory
 [root@ansible ~]# ansible webservers -m file -a "dest=/data  mode=755 owner=user1 group=user1 state=directory" -k
-•	Delete directory recursi¬¬¬vely 
+
+Delete directory recursi¬¬¬vely 
 [root@ansible ~]# ansible webservers -m file -a "dest=/data state=absent" -k      [state=absent,present,latest]
-•	Users and Groups
+
+Users and Groups
 [root@ansible ~]# ansible webservers -m user -a "name=foo1 password=<foo@123>" -k
 [root@ansible ~]# ansible all -m user -a "name=foo1 state=absent" -k
 
