@@ -1,0 +1,25 @@
+---
+- hosts: all
+  tasks:
+    - name: create group
+      group:
+        name: noida
+        gid: 2010
+        state: present
+    - name: create user
+      user:
+        name: user1
+        state: present
+        uid: 2020
+        group: noida
+    - name: create directory
+      file:
+        name: /opt/user1
+        owner: root
+        state: directory
+    - name: create a file
+      file:
+        name: /opt/user1/file1.txt
+        owner: user1
+        mode: 777
+        state: touch
