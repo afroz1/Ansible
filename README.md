@@ -37,10 +37,10 @@ It's an optional parameter specified when we want to execute operations that nee
 --ask-become-pass, -K ---> ask for privilege escalation password.
 
 
-[root@nagios1 ~]# ansible common  -m ping -k                 	[--ask-pass: ask for connection password]
-[root@nagios1 ~]# ansible common -a "ls -l" -k		[--args: module arguments]
+[root@nagios1 ~]# ansible common  -m ping -k                 				[--ask-pass: ask for connection password]
+[root@nagios1 ~]# ansible common -a "ls -l" -k						[--args: module arguments]
 [root@nagios1 ~]# ansible common -a "ip addr show" -k
-[root@nagios1 ~]# ansible common -m copy -a "src=/etc/hosts dest=/tmp/hosts" -k   [--module-name: module name to execute default=command]
+[root@nagios1 ~]# ansible common -m copy -a "src=/etc/hosts dest=/tmp/hosts" -k   	[--module-name: module name to execute default=command]
 
 
 If you put a -c option, then Ansible will do a dry run of the command. It will not actually be applied on the nodes.
