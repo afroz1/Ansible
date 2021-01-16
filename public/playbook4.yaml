@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tasks:
+    - name: install httpd
+      yum: 
+        name: httpd
+        state: present
+
+    - name: ensure it is running
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: copy document root
+      copy:
+        content: '<b1> Hello Web </bi1>'
+        dest: /var/www/html/index.html
